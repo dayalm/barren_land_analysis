@@ -22,7 +22,7 @@ That's it! You don't need anything else (Other than Java 8 of course)
 
 1. From the root level of your local repo, `cd` into the "**BarrenLandAnalysis**" folder
 2. Run the command `./gradlew test`
-3. Open the file ""**build/reports/tests/test/index.html**" to see the unit test results
+3. Open the file "**build/reports/tests/test/index.html**" to see the unit test results
 
 <pre><code>Dayals-MacBook-Pro:BarrenLandAnalysis dayal$ ./gradlew test
 :compileJava UP-TO-DATE
