@@ -257,7 +257,7 @@ public class BarrenLandAnalyzer {
 			throw new IllegalArgumentException();
 		}
 		
-		if(bottomLeftX > topRightX || bottomLeftY > topRightY) {
+		if(bottomLeftX >= topRightX || bottomLeftY >= topRightY) {
 			throw new IllegalArgumentException();
 		}
 		

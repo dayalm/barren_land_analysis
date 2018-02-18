@@ -68,6 +68,18 @@ public class BarrenLandAnalyzerTest {
 	
 	@Test
 	(expected = IllegalArgumentException.class)
+	public void testValidateCoordinates_failure_topRightX_equal_to_bottomLeftX() {
+		analyzer.validateCoordinates(0, 292, 0, 307);
+	}
+	
+	@Test
+	(expected = IllegalArgumentException.class)
+	public void testValidateCoordinates_failure_topRightX_less_than_bottomLeftX() {
+		analyzer.validateCoordinates(48, 392, 30, 407);
+	}
+	
+	@Test
+	(expected = IllegalArgumentException.class)
 	public void testValidateCoordinates_failure_X_great_than_399() {
 		analyzer.validateCoordinates(0, 292, 400, 307);
 	}
