@@ -37,7 +37,7 @@ BUILD SUCCESSFUL
 
 Total time: 0.822 secs</code></pre>
 
-<img src="unit_test_results.png" width="555px" height="400px"/>
+<img src="unit_test_results.png" width="618px" height="500px"/>
 
 ## Running (Command Line)
 
