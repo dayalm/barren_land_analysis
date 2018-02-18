@@ -20,9 +20,11 @@ That's it! You don't need anything else (Other than Java 8 of course)
 
 ## Testing (Command Line)
 
-1. From the root level of your local repo, `cd` into "**BarrenLandAnalysis**" folder
+1. From the root level of your local repo, `cd` into the "**BarrenLandAnalysis**" folder
 2. Run the command `./gradlew test`
 3. Open the file ""**build/reports/tests/test/index.html**" to see the unit test results
+
+<img src="Unit_Test_Results.png" width="555px" height="400px"/>
 
 ## Running (Command Line)
 
