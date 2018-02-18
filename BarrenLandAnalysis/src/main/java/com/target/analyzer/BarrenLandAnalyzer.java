@@ -25,9 +25,20 @@ import java.util.stream.Collectors;
  */
 
 public class BarrenLandAnalyzer {
-	private final int HEIGHT = 400;
-	private final int WIDTH = 600;
-	private final String OUTPUT_SEPARATOR = " ";
+	private final int WIDTH = 400;
+	private final int HEIGHT = 600;
+	
+	private final int BOTTOM_LEFT_X_ARRAY_INDEX = 0;
+	private final int BOTTOM_LEFT_Y_ARRAY_INDEX = 1;
+	private final int TOP_RIGHT_X_ARRAY_INDEX = 2;
+	private final int TOP_RIGHT_Y_ARRAY_INDEX = 3;
+	
+	private final int X_COORDINATE_ARRAY_INDEX = 0;
+	private final int Y_COORDINATE_ARRAY_INDEX = 1;
+	
+	private final int NUM_COORDINATES_PER_RECTANGLE = 4;
+	
+	private final String SPACE = " ";
 	
 	public static void main(String[]args) {
 		BarrenLandAnalyzer analyzer = new BarrenLandAnalyzer();
@@ -74,54 +85,54 @@ public class BarrenLandAnalyzer {
 	 * Identifies fertile regions using a modified Breadth First Search (BFS) algorithm
 	 * 
 	 *
-	 * @param farm farm model with the barren squares marked
+	 * @param farm model with the barren parts marked
 	 * @return unsorted list of areas for all fertile regions
 	 */
 	
 	private List<Integer> findFertileAreas(Integer[][] farm) {
-		int row = 0;
-		int column = 0;
+		int x = 0;
+		int y = 0;
 		LinkedList<Integer[]> queue = new LinkedList<Integer[]>();
 		
 		Map<Integer,Integer> fertileAreaMap = new HashMap<Integer,Integer>();
 		
 		int currentFertileArea = 0;
 		
-		while(row < HEIGHT && column < WIDTH) {
+		while(x < HEIGHT && y < WIDTH) {
 			
 			if(queue.isEmpty()) {
-				if(!isSquareVisited(row,column,farm)) {
-					queue.add(new Integer[]{row,column});
+				if(!isPartVisited(x,y,farm)) {
+					queue.add(new Integer[]{x,y});
 					currentFertileArea++;
 					fertileAreaMap.put(currentFertileArea, 0);
 				}
 				
-				if (row == HEIGHT-1) {
-					row = 0;
-					column ++;
+				if (x == WIDTH-1) {
+					x = 0;
+					y ++;
 				} else {
-					row += 1;
+					x += 1;
 				}
 			} 
 			
 			if(!queue.isEmpty()) {
 				
-				Integer[] square = queue.poll();
+				Integer[] part = queue.poll();
 				
-				int currentRow = square[0];
-				int currentColumn = square[1];
+				int currentX = part[X_COORDINATE_ARRAY_INDEX];
+				int currentY = part[Y_COORDINATE_ARRAY_INDEX];
 				
-				if(!isSquareVisited(currentRow,currentColumn,farm)) {
+				if(!isPartVisited(currentX,currentY,farm)) {
 					
-					farm[currentRow][currentColumn] = currentFertileArea;
+					farm[currentX][currentY] = currentFertileArea;
 					
 					fertileAreaMap.put(currentFertileArea, fertileAreaMap.get(currentFertileArea)+1);
 					
-					List<Integer[]> neighboringSquares = this.neighboringSquares(currentRow, currentColumn);
+					List<Integer[]> neighboringParts = this.neighbors(currentX, currentY);
 					
-					for(Integer[] neighboringSquare:neighboringSquares) {
-						if(!isSquareVisited(neighboringSquare,farm)) {
-							queue.add(neighboringSquare);
+					for(Integer[] neighboringPart:neighboringParts) {
+						if(!isPartVisited(neighboringPart,farm)) {
+							queue.add(neighboringPart);
 						}
 					}
 					
@@ -146,44 +157,44 @@ public class BarrenLandAnalyzer {
 		if (fertileAreas.isEmpty()) {
 			System.out.println("No fertile areas");
 		} else {
-			System.out.println(fertileAreas.stream().sorted().map(value->value.toString()).collect(Collectors.joining(OUTPUT_SEPARATOR)));
+			System.out.println(fertileAreas.stream().sorted().map(value->value.toString()).collect(Collectors.joining(SPACE)));
 		}
 		
 	}
 	
 	/**
-	 * All neighboring squares of a square at a particular row and column
-	 * @param row
-	 * @param column
-	 * @return neighboring squares
+	 * All immediate neighbors of a given coordinate
+	 * @param x
+	 * @param y
+	 * @return neighboring parts
 	 */
-	private List<Integer[]> neighboringSquares(int row, int column) {
-		List<Integer[]> neighboringSquares = new ArrayList<Integer[]>();
-		if (column - 1 >=0) {
-			neighboringSquares.add(new Integer[]{row, column-1});
+	private List<Integer[]> neighbors(int x, int y) {
+		List<Integer[]> neighbors = new ArrayList<Integer[]>();
+		if (x - 1 >=0) {
+			neighbors.add(new Integer[]{x-1, y});
 		}
 		
-		if (column + 1 < WIDTH) {
-			neighboringSquares.add(new Integer[]{row, column+1});
+		if (x + 1 < WIDTH) {
+			neighbors.add(new Integer[]{x+1, y});
 		}
 		
-		if (row -1 >=0) {
-			neighboringSquares.add(new Integer[]{row-1,column});
+		if (y -1 >=0) {
+			neighbors.add(new Integer[]{x,y-1});
 		}
 		
-		if(row +1 < HEIGHT) {
-			neighboringSquares.add(new Integer[]{row+1,column});
+		if(y +1 < HEIGHT) {
+			neighbors.add(new Integer[]{x,y+1});
 		}
 		
-		return neighboringSquares;
+		return neighbors;
 	}
 	
-	private boolean isSquareVisited(int row, int column, Integer[][]farm) {
-		return (farm[row][column] != 0);
+	private boolean isPartVisited(int x, int y, Integer[][]farm) {
+		return (farm[x][y] != 0);
 	}
 	
-	private boolean isSquareVisited(Integer[] square, Integer[][]farm) {
-		return this.isSquareVisited(square[0],square[1],farm);
+	private boolean isPartVisited(Integer[] part, Integer[][]farm) {
+		return this.isPartVisited(part[X_COORDINATE_ARRAY_INDEX],part[Y_COORDINATE_ARRAY_INDEX],farm);
 	}
 	
 	private void handleInputError() {
@@ -192,7 +203,7 @@ public class BarrenLandAnalyzer {
 	}
 	
 	/**
-	 * Constructs a 2-D model of the farm land with 1X1 squares, marking all the barren squares
+	 * Constructs a 2-D model of the farm land marking all the barren parts
 	 * @param barrenLandRectangles bottom left and top right coordinates of barren land rectangles
 	 * @return
 	 */
@@ -206,20 +217,20 @@ public class BarrenLandAnalyzer {
 		Integer[][] farm = this.buildFarm();
 		
 		for(String barrenLandRectangle:barrenLandRectangles) {
-			// Each coordinate in the rectangle is separated by a space
-			String [] coordinates = barrenLandRectangle.trim().split(" ");
 			
-			if (coordinates.length != 4) {
+			String [] coordinates = barrenLandRectangle.trim().split(SPACE);
+			
+			if (coordinates.length != NUM_COORDINATES_PER_RECTANGLE) {
 				handleInputError();
 			}
 			
 			int bottomLeftX=0,bottomLeftY=0,topRightX=0,topRightY=0;
 			
 			try {
-					bottomLeftX = Integer.parseInt(coordinates[0]);
-					bottomLeftY = Integer.parseInt(coordinates[1]);
-					topRightX = Integer.parseInt(coordinates[2]);
-					topRightY = Integer.parseInt(coordinates[3]);
+					bottomLeftX = Integer.parseInt(coordinates[BOTTOM_LEFT_X_ARRAY_INDEX]);
+					bottomLeftY = Integer.parseInt(coordinates[BOTTOM_LEFT_Y_ARRAY_INDEX]);
+					topRightX = Integer.parseInt(coordinates[TOP_RIGHT_X_ARRAY_INDEX]);
+					topRightY = Integer.parseInt(coordinates[TOP_RIGHT_Y_ARRAY_INDEX]);
 					
 					validateCoordinates(bottomLeftX,bottomLeftY,topRightX,topRightY);
 			}
@@ -261,21 +272,21 @@ public class BarrenLandAnalyzer {
 			throw new IllegalArgumentException();
 		}
 		
-		if (bottomLeftX > 399 || topRightX > 399 || bottomLeftY > 599 || topRightY > 599 ) {
+		if (bottomLeftX > WIDTH-1 || topRightX > WIDTH-1 || bottomLeftY > HEIGHT-1 || topRightY > HEIGHT-1 ) {
 			throw new IllegalArgumentException();
 		}
 	}
 	
 	/**
-	 * Constructs a 2-D model of the farm land with 1X1 squares 
+	 * Constructs a 2-D model of the farm land
 	 * @return The farm model
 	 */
 	
 	private Integer[][] buildFarm() {
-		Integer[][] farm = new Integer[HEIGHT][WIDTH];
-		for (int row = 0; row < farm.length;row++) {
-			for (int column =0;column< farm[row].length;column++) {
-				farm[row][column] = 0;
+		Integer[][] farm = new Integer[WIDTH][HEIGHT];
+		for (int x = 0; x < WIDTH;x++) {
+			for (int y =0;y< HEIGHT;y++) {
+				farm[x][y] = 0;
 			}
 		}
 		return farm;
