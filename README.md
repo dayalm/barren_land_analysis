@@ -24,6 +24,19 @@ That's it! You don't need anything else (Other than Java 8 of course)
 2. Run the command `./gradlew test`
 3. Open the file ""**build/reports/tests/test/index.html**" to see the unit test results
 
+<pre><code>Dayals-MacBook-Pro:BarrenLandAnalysis dayal$ ./gradlew test
+:compileJava UP-TO-DATE
+:processResources NO-SOURCE
+:classes UP-TO-DATE
+:compileTestJava UP-TO-DATE
+:processTestResources NO-SOURCE
+:testClasses UP-TO-DATE
+:test UP-TO-DATE
+
+BUILD SUCCESSFUL
+
+Total time: 0.822 secs</code></pre>
+
 <img src="Unit_Test_Results.png" width="555px" height="400px"/>
 
 ## Running (Command Line)
@@ -32,5 +45,14 @@ That's it! You don't need anything else (Other than Java 8 of course)
 2. Run the command `./gradlew run -PappArgs="['48 192 351 207', '48 392 351 407','120 52 135 547','260 52 275 547']"` to see the output for the given barren land rectangles. 
 3. Change the input arguments to run the application with a different set of coordinates for barren land rectangles.
 
+<pre><code>Dayals-MacBook-Pro:BarrenLandAnalysis dayal$ ./gradlew run -PappArgs="['48 192 351 207', '48 392 351 407','120 52 135 547','260 52 275 547']"
+:compileJava UP-TO-DATE
+:processResources NO-SOURCE
+:classes UP-TO-DATE
+:run
+22816 192608
 
+BUILD SUCCESSFUL
+
+Total time: 1.128 secs</code></pre>
 
