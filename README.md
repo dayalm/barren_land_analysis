@@ -12,19 +12,19 @@ Barren Land Analysis is a Java 8 application that outputs areas of all fertile r
 
 ## Setup
 
-### Clone the repo on local machine
+### Clone the repo on your local machine (Command Line)
 
 `git clone git@github.com:dayalm/barren_land_analysis.git`
 
 That's it! You don't need anything else (Other than Java 8 of course)
 
-## Testing
+## Testing (Command Line)
 
 1. From the root level of your local repo, `cd` into "**BarrenLandAnalysis**" folder
 2. Run the command `./gradlew test`
 3. Open the file ""**build/reports/tests/test/index.html**" to see the unit test results
 
-## Running
+## Running (Command Line)
 
 1. From the root level of your local repo, `cd` into the "**BarrenLandAnalysis**" folder
 2. Run the command `./gradlew run -PappArgs="['48 192 351 207', '48 392 351 407','120 52 135 547','260 52 275 547']"` to see the output for the given barren land rectangles. 
