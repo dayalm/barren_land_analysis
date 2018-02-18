@@ -98,7 +98,7 @@ public class BarrenLandAnalyzer {
 		
 		int currentFertileArea = 0;
 		
-		while(x < HEIGHT && y < WIDTH) {
+		while(x < WIDTH && y < HEIGHT) {
 			
 			if(queue.isEmpty()) {
 				if(!isPartVisited(x,y,farm)) {
