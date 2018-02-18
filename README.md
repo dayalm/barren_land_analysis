@@ -10,11 +10,11 @@ Barren Land Analysis is a Java 8 application that outputs areas of all fertile r
 
 ## Running
 
--To Do-
+gradle run -PappArgs="['48 192 351 207', '48 392 351 407','120 52 135 547','260 52 275 547']"
 
 ## Testing
 
--To Do-
+gradle test
 
 
 
