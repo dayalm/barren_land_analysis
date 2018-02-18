@@ -26,3 +26,9 @@ bin/
 RemoteSystemsTempFiles/
 .metadata/
 REMOTE
+
+# Gradle
+build/
+!gradle-wrapper.jar
+.gradle/
+.gradletasknamecache
