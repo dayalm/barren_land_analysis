@@ -14,14 +14,9 @@ import java.util.stream.Collectors;
  * The lower left and upper right coordinates of all barren land rectangles should be passed as program arguments
  * with each coordinate separated by a space. Each argument represents a barren land rectangle.
  * 
- * Usage
- * java BarrenLandAnalyzer <barren land rectangles>
- * 
- * Example
- * java BarrenLand Analyzer  "48 192 351 207" "48 392 351 407" "120 52 135 547" "260 52 275 547"
- * 
  * @author  Dayal Murukutla
- * @version 1.0     
+ * @version 1.0
+ *
  */
 
 public class BarrenLandAnalyzer {
